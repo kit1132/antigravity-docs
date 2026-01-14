@@ -1,0 +1,9 @@
+# Dependencies
+node_modules/
+
+# OS files
+.DS_Store
+
+# Build outputs
+dist/
+.next/
