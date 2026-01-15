@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Desktop「Cowork」完全ガイド（2026年1月版）</title>
+  <!-- Marked.js: Markdown→HTML変換ライブラリ -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    @page {
+      size: A4;
+      margin: 12.7mm;
+    }
+
+    :root {
+      --primary-color: #0078d4;
+      --secondary-color: #106ebe;
+      --success-color: #107c10;
+      --warning-color: #d83b01;
+      --danger-color: #d13438;
+      --bg-color: #ffffff;
+      --text-color: #323130;
+      --text-muted: #605e5c;
+      --border-color: #e1dfdd;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Hiragino Sans', 'Meiryo', 'Yu Gothic', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.7;
+      font-size: 10pt;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: clamp(16px, 5vw, 1.27cm);
+    }
+
+    /* ヘッダー */
+    .header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 30px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+    }
+
+    .header h1 {
+      font-size: 18pt;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 10pt;
+      opacity: 0.95;
+      margin-bottom: 10px;
+    }
+
+    .header .meta {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 9pt;
+    }
+
+    /* Markdownコンテンツ用スタイル */
+    #markdown-content {
+      line-height: 1.8;
+    }
+
+    #markdown-content h1 {
+      display: none;
+      /* ヘッダーで表示するため非表示 */
+    }
+
+    #markdown-content h2 {
+      color: var(--primary-color);
+      font-size: 14pt;
+      font-weight: 600;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary-color);
+      page-break-after: avoid;
+    }
+
+    #markdown-content h3 {
+      color: var(--text-color);
+      font-size: 11pt;
+      font-weight: 600;
+      margin: 25px 0 12px 0;
+      page-break-after: avoid;
+    }
+
+    #markdown-content h4 {
+      color: var(--text-muted);
+      font-size: 10pt;
+      font-weight: 600;
+      margin: 20px 0 10px 0;
+    }
+
+    #markdown-content p {
+      margin-bottom: 12px;
+    }
+
+    #markdown-content strong {
+      color: var(--text-color);
+      font-weight: 600;
+    }
+
+    /* テーブル */
+    #markdown-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 9pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* テーブル行の分裂防止 */
+    #markdown-content tr {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* テーブルを含むセクション全体の分裂防止 */
+    #markdown-content h2 + p + table,
+    #markdown-content h3 + p + table,
+    #markdown-content p + table {
+      page-break-before: avoid;
+      break-before: avoid;
+    }
+
+    #markdown-content th,
+    #markdown-content td {
+      padding: 10px 12px;
+      text-align: left;
+      border: 1px solid var(--border-color);
+    }
+
+    #markdown-content th {
+      background: #f3f2f1;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    #markdown-content tr:nth-child(even) {
+      background: #fafafa;
+    }
+
+    /* リスト */
+    #markdown-content ul,
+    #markdown-content ol {
+      margin: 12px 0;
+      padding-left: 25px;
+    }
+
+    #markdown-content li {
+      margin: 8px 0;
+    }
+
+    #markdown-content li::marker {
+      color: var(--primary-color);
+    }
+
+    /* コードブロック */
+    #markdown-content code {
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 9pt;
+    }
+
+    #markdown-content pre {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 15px 0;
+      font-size: 9pt;
+      page-break-inside: avoid;
+    }
+
+    #markdown-content pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    /* 引用 */
+    #markdown-content blockquote {
+      border-left: 4px solid var(--primary-color);
+      padding: 12px 18px;
+      margin: 15px 0;
+      background: #f9f9f9;
+      font-style: italic;
+    }
+
+    #markdown-content blockquote p {
+      margin: 0;
+    }
+
+    /* 水平線 */
+    #markdown-content hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 30px 0;
+    }
+
+    /* リンク */
+    #markdown-content a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    #markdown-content a:hover {
+      text-decoration: underline;
+    }
+
+    /* 注意書きボックス */
+    .note-box {
+      border-left: 4px solid var(--warning-color);
+      padding: 12px 15px;
+      margin: 15px 0;
+      background: #fff8f3;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .note-box.info {
+      border-left-color: var(--primary-color);
+      background: #f3f9ff;
+    }
+
+    .note-box.success {
+      border-left-color: var(--success-color);
+      background: #f3fff3;
+    }
+
+    .note-box.danger {
+      border-left-color: var(--danger-color);
+      background: #fff3f3;
+    }
+
+    .note-box-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+      font-size: 9pt;
+    }
+
+    /* まとめセクション用カード */
+    .summary-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    @media (max-width: 600px) {
+      .summary-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .summary-card {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 15px 18px;
+      page-break-inside: avoid;
+    }
+
+    .summary-card.points {
+      border-color: var(--success-color);
+      background: linear-gradient(135deg, #f3fff3, #e8f5e9);
+    }
+
+    .summary-card.cautions {
+      border-color: var(--danger-color);
+      background: linear-gradient(135deg, #fff3f3, #ffebee);
+    }
+
+    .summary-card-title {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 9pt;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .summary-card.points .summary-card-title {
+      background: var(--success-color);
+      color: white;
+    }
+
+    .summary-card.cautions .summary-card-title {
+      background: var(--danger-color);
+      color: white;
+    }
+
+    .summary-card ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .summary-card li {
+      margin: 6px 0;
+      font-size: 9pt;
+    }
+
+    .summary-card.points li::marker {
+      color: var(--success-color);
+    }
+
+    .summary-card.cautions li::marker {
+      color: var(--danger-color);
+    }
+
+    /* キーポイントボックス */
+    .key-point-box {
+      background: linear-gradient(135deg, #f3f9ff, #e5f1fb);
+      border: 1px solid var(--primary-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .key-point-box p {
+      font-size: 11pt;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin: 0;
+    }
+
+    /* ステップカード */
+    .step-card {
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 15px 18px;
+      margin: 12px 0;
+      page-break-inside: avoid;
+    }
+
+    .step-card h4 {
+      color: var(--primary-color);
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    /* バッジ */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 8pt;
+      font-weight: 600;
+      margin-right: 5px;
+    }
+
+    .badge-info {
+      background: #e5f1fb;
+      color: var(--primary-color);
+    }
+
+    .badge-success {
+      background: #dff6dd;
+      color: var(--success-color);
+    }
+
+    .badge-warning {
+      background: #fff4ce;
+      color: var(--warning-color);
+    }
+
+    .badge-danger {
+      background: #fde7e9;
+      color: var(--danger-color);
+    }
+
+    /* フッター */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--text-muted);
+      font-size: 8pt;
+      border-top: 1px solid var(--border-color);
+      margin-top: 30px;
+    }
+
+    /* ローディング */
+    .loading {
+      text-align: center;
+      padding: 50px;
+      color: var(--text-muted);
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border: 3px solid var(--border-color);
+      border-top-color: var(--primary-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* エラー表示 */
+    .error-message {
+      background: #fff3f3;
+      border: 1px solid var(--danger-color);
+      border-radius: 6px;
+      padding: 20px;
+      text-align: center;
+      color: var(--danger-color);
+    }
+
+    /* 更新通知 */
+    .update-notice {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--success-color);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 9pt;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1000;
+    }
+
+    .update-notice.show {
+      opacity: 1;
+    }
+
+    /* 改ページ用クラス */
+    .page-break {
+      page-break-before: always;
+      break-before: always;
+      height: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 印刷用 */
+    @media print {
+      body {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+        margin: 1.27cm;
+      }
+
+      .container {
+        max-width: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .header {
+        background: var(--primary-color) !important;
+      }
+
+      .update-notice {
+        display: none;
+      }
+
+      /* 印刷時のテーブル分裂防止 */
+      table, tr, thead, tbody {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      /* 見出しと後続コンテンツを一緒に保持 */
+      h2, h3, h4 {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+      }
+
+      /* テーブル前での改ページを回避 */
+      table {
+        page-break-before: avoid !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- ============================================== -->
+    <!-- ヘッダー                                       -->
+    <!-- ============================================== -->
+    <header class="header">
+      <h1 id="doc-title">Claude Desktop「Cowork」完全ガイド</h1>
+      <p id="doc-subtitle">AIに仕事を任せる新しい働き方</p>
+      <span class="meta" id="doc-meta">リサーチプレビュー公開：2026年1月12日</span>
+    </header>
+
+
+    <!-- ============================================== -->
+    <!-- Markdownコンテンツ                             -->
+    <!-- ============================================== -->
+    <main id="markdown-content">
+      <div class="loading">
+        <div class="loading-spinner"></div>
+        <p>コンテンツを読み込み中...</p>
+      </div>
+    </main>
+
+
+    <!-- ============================================== -->
+    <!-- フッター                                        -->
+    <!-- ============================================== -->
+    <footer class="footer">
+      <p>Claude Desktop「Cowork」完全ガイド | 2026年1月作成</p>
+      <p style="margin-top: 5px; font-size: 7pt;">このHTMLはMarkdownファイルから動的に生成されています</p>
+    </footer>
+
+  </div>
+
+  <!-- 更新通知 -->
+  <div class="update-notice" id="update-notice">
+    ✓ コンテンツを更新しました
+  </div>
+
+  <script>
+    // ==============================================
+    // 設定
+    // ==============================================
+    const MARKDOWN_FILE = 'Claude Desktop「Cowork」.md';
+    const POLL_INTERVAL = 2000; // 2秒ごとにファイルをチェック
+
+    let lastContent = '';
+    let lastModified = '';
+
+    // ==============================================
+    // Marked.js設定
+    // ==============================================
+    marked.setOptions({
+      breaks: true,        // 改行を<br>に変換
+      gfm: true,           // GitHub Flavored Markdown
+      headerIds: true,     // 見出しにIDを付与
+      mangle: false        // メールアドレスをエンコードしない
+    });
+
+    // ==============================================
+    // Markdownを読み込んでHTMLに変換
+    // ==============================================
+    async function loadMarkdown() {
+      try {
+        const response = await fetch(MARKDOWN_FILE, {
+          cache: 'no-store',  // キャッシュを無効化
+          headers: {
+            'Cache-Control': 'no-cache'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`ファイルの読み込みに失敗しました: ${response.status}`);
+        }
+
+        const markdown = await response.text();
+
+        // 内容が変わった場合のみ更新
+        if (markdown !== lastContent) {
+          lastContent = markdown;
+          renderMarkdown(markdown);
+
+          // 初回以外は更新通知を表示
+          if (lastModified) {
+            showUpdateNotice();
+          }
+          lastModified = new Date().toISOString();
+        }
+
+      } catch (error) {
+        console.error('Markdown読み込みエラー:', error);
+        showError(error.message);
+      }
+    }
+
+    // ==============================================
+    // MarkdownをHTMLにレンダリング
+    // ==============================================
+    function renderMarkdown(markdown) {
+      // タイトル（h1）を抽出してヘッダーに反映
+      const titleMatch = markdown.match(/^#\s+(.+)$/m);
+      if (titleMatch) {
+        const fullTitle = titleMatch[1];
+        // タイトルを分割（——で区切られている場合）
+        const parts = fullTitle.split(/\s*——\s*/);
+        document.getElementById('doc-title').textContent = parts[0].replace(/【.*?】/, '').trim();
+        if (parts[1]) {
+          document.getElementById('doc-subtitle').textContent = parts[1];
+        }
+      }
+
+      // MarkdownをHTMLに変換
+      let html = marked.parse(markdown);
+
+      // 後処理：特定パターンをスタイル付きボックスに変換
+      html = enhanceHTML(html);
+
+      // コンテンツを更新
+      document.getElementById('markdown-content').innerHTML = html;
+    }
+
+    // ==============================================
+    // HTMLの後処理（スタイル強化）
+    // ==============================================
+    function enhanceHTML(html) {
+      // 「**ポイント**」+リストと「**注意点**」+リストをまとめてカードに変換
+      // パターン: <p><strong>ポイント</strong></p>\n<ul>...</ul> と <p><strong>注意点</strong></p>\n<ul>...</ul>
+      html = html.replace(
+        /<p><strong>ポイント<\/strong><\/p>\s*<ul>([\s\S]*?)<\/ul>\s*<p><strong>注意点<\/strong><\/p>\s*<ul>([\s\S]*?)<\/ul>/gi,
+        `<div class="summary-cards">
+          <div class="summary-card points">
+            <div class="summary-card-title">ポイント</div>
+            <ul>$1</ul>
+          </div>
+          <div class="summary-card cautions">
+            <div class="summary-card-title">注意点</div>
+            <ul>$2</ul>
+          </div>
+        </div>`
+      );
+
+      // 単独の「**注意**：」をノートボックスに変換（テキストが続く場合）
+      html = html.replace(
+        /<p><strong>(注意|警告|重要)<\/strong>[:：]\s*([^<]+)<\/p>/gi,
+        '<div class="note-box danger"><div class="note-box-title">$1</div><p>$2</p></div>'
+      );
+
+      // 単独の「**ポイント**：」をノートボックスに変換（テキストが続く場合）
+      html = html.replace(
+        /<p><strong>(ポイント|ヒント|Tips)<\/strong>[:：]\s*([^<]+)<\/p>/gi,
+        '<div class="note-box info"><div class="note-box-title">$1</div><p>$2</p></div>'
+      );
+
+      html = html.replace(
+        /<p><strong>(完了|成功)<\/strong>[:：]\s*([^<]+)<\/p>/gi,
+        '<div class="note-box success"><div class="note-box-title">$1</div><p>$2</p></div>'
+      );
+
+      // 「※」で始まる段落を補足ボックスに
+      html = html.replace(
+        /<p>※(.+?)<\/p>/g,
+        '<div class="note-box info"><p>※$1</p></div>'
+      );
+
+      // Step X: パターンをステップカードに
+      html = html.replace(
+        /<h3>Step\s*(\d+)[:：]\s*(.+?)<\/h3>/gi,
+        '<div class="step-card"><h4><span class="badge badge-info">Step $1</span> $2</h4></div>'
+      );
+
+      // バッジパターン
+      html = html.replace(/\[必須\]/g, '<span class="badge badge-danger">必須</span>');
+      html = html.replace(/\[推奨\]/g, '<span class="badge badge-success">推奨</span>');
+      html = html.replace(/\[任意\]/g, '<span class="badge badge-info">任意</span>');
+      html = html.replace(/\[対応予定\]/g, '<span class="badge badge-warning">対応予定</span>');
+
+      // 改ページマーカー（Markdown内の <!-- pagebreak --> を変換）
+      html = html.replace(/<!--\s*pagebreak\s*-->/gi, '<div class="page-break"></div>');
+
+      return html;
+    }
+
+    // ==============================================
+    // 更新通知を表示
+    // ==============================================
+    function showUpdateNotice() {
+      const notice = document.getElementById('update-notice');
+      notice.classList.add('show');
+      setTimeout(() => {
+        notice.classList.remove('show');
+      }, 3000);
+    }
+
+    // ==============================================
+    // エラー表示
+    // ==============================================
+    function showError(message) {
+      document.getElementById('markdown-content').innerHTML = `
+        <div class="error-message">
+          <p><strong>読み込みエラー</strong></p>
+          <p>${message}</p>
+          <p style="margin-top: 15px; font-size: 8pt; color: var(--text-muted);">
+            Markdownファイル「${MARKDOWN_FILE}」が同じフォルダに存在することを確認してください。<br>
+            ローカルファイルの場合、ローカルサーバーで実行する必要があります。
+          </p>
+        </div>
+      `;
+    }
+
+    // ==============================================
+    // 初期化・ポーリング開始
+    // ==============================================
+    document.addEventListener('DOMContentLoaded', () => {
+      // 初回読み込み
+      loadMarkdown();
+
+      // 定期的にファイルをチェック（ポーリング）
+      setInterval(loadMarkdown, POLL_INTERVAL);
+    });
+  </script>
+</body>
+
+</html>
